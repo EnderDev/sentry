@@ -1,0 +1,25 @@
+{
+  "name": "sentry",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@types/express": "^4.17.8",
+    "@types/minimist": "^1.2.0",
+    "@types/strip-comments": "^2.0.0",
+    "axios": "^0.20.0",
+    "express": "^4.17.1",
+    "minimist": "^1.2.5",
+    "src": "^1.1.2",
+    "strip-comments": "^2.0.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.0.2"
+  }
+}
