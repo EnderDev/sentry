@@ -8,7 +8,7 @@ import { writeFileSync } from 'fs';
 import * as lists from '../lists.json';
 
 export class SentryDownloader {
-  public hosts: any = []; 
+  public hosts: Set = new Set(); 
   public args: { send: boolean } = {}
 
   constructor(args) {
@@ -17,14 +17,14 @@ export class SentryDownloader {
     var t = Date.now()
 
     this.init().then(_ => {
-      const hosts = this.hosts.join("\n");
+      const hosts = Array.from(this.hosts).join("\n");
 
       if(this.args && this.args.send) return console.log(hosts)
 
       writeFileSync(join(__dirname, "../", "latest.txt"), hosts, "utf-8")
 
-      console.log(`\n✅  Done ${this.hosts.length.toLocaleString()} hosts in \`${Date.now() - t}ms\`.`)
-      console.log(`✏   Wrote ${this.hosts.length.toLocaleString()} hosts (${((encodeURI(hosts).split(/%..|./).length - 1)/1000000).toFixed(1)} MB)`)
+      console.log(`\n✅  Done ${Array.from(this.hosts).length.toLocaleString()} hosts in \`${Date.now() - t}ms\`.`)
+      console.log(`✏   Wrote ${Array.from(this.hosts).length.toLocaleString()} hosts (${((encodeURI(hosts).split(/%..|./).length - 1)/1000000).toFixed(1)} MB)`)
     })
   }
 
@@ -40,10 +40,10 @@ export class SentryDownloader {
 
           if(this.args && !this.args.send) console.log("✅ ", fileName == "" ? listURL : fileName)
 
-          this.hosts.push(`${list.type}:`)
+          this.hosts.add(`${list.type}:`)
 
           for(const host of data) {
-            this.hosts.push(host)
+            this.hosts.add(host)
           }
         }
       }
